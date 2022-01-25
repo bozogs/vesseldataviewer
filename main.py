@@ -10,89 +10,39 @@ from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF, renderPM
 from PIL import Image, ImageTk
 
-def ordnance_data(ord_type, entered_text, root):
-    count = 0
-    elem = root.find(".//vessel[@uniqueID='" + entered_text + "']/torpedo_storage[@type='" + ord_type + "']")
-    if elem is not None:
-        count = elem.attrib['amount']
-
-    return count
-
-def getArcData(vessel):
-    id = vessel.id
-    vessel_arcwidth = \
-    root.find(".//vessel[@uniqueID='" + id + "']/beam_port").attrib['arcwidth']
-    vessel_arc_x = \
-    root.find(".//vessel[@uniqueID='" + id + "']/beam_port").attrib['x']
-
-    vessel_front_shield = root.find(".//vessel[@uniqueID='" + id + "']/shields").attrib['front']
-    vessel_back_shield = root.find(".//vessel[@uniqueID='" + id + "']/shields").attrib['back']
-
-    vessel_arc_width_extent = 360 * float(vessel_arcwidth)
-    vessel_arc_width_extent_half = round(vessel_arc_width_extent / 2)
-    #print(vessel_arc_width_extent)
-
-    if vessel_arc_x < "0":
-        vessel_arc_x_start = round((360 - float(vessel_arc_x))  + (90 + vessel_arc_width_extent_half))
-        #print("if:"+vessel_arc_x)
-    else:
-        vessel_arc_x_start = round((0 + float(vessel_arc_x)) + (90 - vessel_arc_width_extent_half))
-        #print("else:" + vessel_arc_x)
-
-    vessel.front_shield     = vessel_front_shield
-    vessel.back_shield      = vessel_back_shield
-    vessel.arcwidth         = vessel_arcwidth
-    vessel.arc_width_extent = vessel_arc_width_extent
-    vessel.arc_x            = vessel_arc_x
-    vessel.arc_x_start      = vessel_arc_x_start
-    
-    return vessel
-
 # key down function
 def submit_uniqueID(vessel):
-    ship_ordnance.clear()
     all_labels.clear()
     entered_text=textentry.get()
-    vessel.id = entered_text
-    for vessels in root.findall(".//vessel[@uniqueID='" + entered_text + "']"):
 
-        for k,v in ordnance_database.items():
-            a = ordnance_data(k, entered_text, root)
-            ship_ordnance.append(a)
+    vessel.setup(entered_text, "vesselData.xml")
 
-        row = 7
-        step = 0
-        for k,v in ordnance_database.items():
-                #print(k)
-                #print(v)
-                name = v
-                label = ttk.Label(window, text=(name + ": " + str(ship_ordnance[step])), background=background_colour, foreground="white", font="none 10")
-                label.grid(row=row, column=0, sticky=W, columnspan=2)
-                all_labels.append(label)
-                row += 1
-                step += 1
+    print(vessel.ordnance)
 
-        getArcData(vessel)
+    row = 7
+    step = 0
+    for key,name in ordnance_database.items():
+        label = ttk.Label(window, text=(name + ": " + str(vessel.ordnance[key])), background=background_colour, foreground="white", font="none 10")
+        label.grid(row=row, column=0, sticky=W, columnspan=2)
+        all_labels.append(label)
+        row += 1
+        step += 1
 
-        #overwrites existing labels
-        #label_uniqueID.configure(text="Unique ID: " + vessel.id)
-        #label_side.configure(text="Side: " + vessel.side)
-        label_classname.configure(text=vessel.classname)
-        label_description.configure(text=vessel.description)
-        #label_broadType.configure(text="broadType: " + vessel.broadType)
-        label_front_shield_value_text.configure(text=vessel.front_shield)
-        label_rear_shield_value_text.configure(text=vessel.back_shield)
-        arc_canvas.coords(100, 100, 300, 300)
-        arc_canvas.itemconfig(arc, start=vessel.arc_x_start, extent=vessel.arc_width_extent)
+
+    #overwrites existing labels
+    #label_uniqueID.configure(text="Unique ID: " + vessel.id)
+    #label_side.configure(text="Side: " + vessel.side)
+    label_classname.configure(text=vessel.classname)
+    label_description.configure(text=vessel.description)
+    #label_broadType.configure(text="broadType: " + vessel.broadType)
+    label_front_shield_value_text.configure(text=vessel.front_shield)
+    label_rear_shield_value_text.configure(text=vessel.back_shield)
+    arc_canvas.coords(100, 100, 300, 300)
+    arc_canvas.itemconfig(arc, start=vessel.arc_x_start, extent=vessel.arc_width_extent)
 
 
 background_colour = "#182039"
 title_text_colour = "#F6D365"
-
-tree = ET.parse("vesselData.xml")
-if not tree:
-    exit("No data")
-root = tree.getroot()
 
 ordnance_database = {
     "trp": "Homing",
@@ -200,7 +150,7 @@ Label (window, text="by Lt. Garion", bg=background_colour, fg="white", font="non
 
 #User Input
 Label (window, text="Enter a uniqueID:", bg=background_colour, fg="white", font="none 10") .grid(row=1, column=0, stick=E)
-textentry = Entry(window, width=20, bg="white")
+textentry = Entry(window, width=20, bg="white", fg="black")
 textentry.grid(row=1, column=1, sticky=W)
 
 #Submit button

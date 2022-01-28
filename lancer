@@ -1,0 +1,29 @@
+  <vessel  uniqueID="17" side="0" classname="Nemesis Class"   broadType="player">
+    <art meshfile="dat/TSN/Player/nemesis.dxs" diffuseFile="dat/TSN/Player/nemesis_diffuse.png" glowFile="dat/TSN/Player/nemesis_illum.png" specularFile="dat/TSN/Player/artemis_specular.png" scale="0.2" pushRadius="150"/>
+    <internal_data file="dat/TSN/Player/nemesis.snt"/>
+	<!-- Weapons and Shields modified (1/4)-->
+    <shields front="20" back="15" />
+	<performance   turnrate="0.0068" topspeed="1.0" shipefficiency="0.6" warpefficiency="0.3" jumpefficiency="1.0"/>
+	<beam_port   x="0"  y="8.3" z="215.74" damage="0.25" playerdamage="1.5" arcwidth="0.4" cycletime="4.5" range="800"/>
+
+	<torpedo_tube x="0" y="8.35" z="258.74"/>
+	<torpedo_storage type="trp" amount="8"/>  <!-- Homing"-->
+    <torpedo_storage type="nuk" amount="0"/>  <!-- LR Nuke-->
+    <torpedo_storage type="min" amount="1"/>  <!-- Mine"-->
+    <torpedo_storage type="emp" amount="2"/>  <!-- EMP"-->
+    <torpedo_storage type="shk" amount="8"/>  <!-- Plasma Shock"-->
+    <torpedo_storage type="bea" amount="4"/>  <!-- Beacon"-->
+    <torpedo_storage type="pro" amount="8"/>  <!-- Probe"-->
+    <torpedo_storage type="tag" amount="2"/>  <!-- Tag"-->
+    <engine_port x="0" y="-9.22" z="-240" />
+    <engine_port x="0"  y="29.64" z="-245"/>
+    <engine_port x="-90.755783" y="-35.202168" z="-145.740082"/>
+    <engine_port x="90.755783" y="-35.202168" z="-145.740082"/>
+    <engine_port x="-60" y="67.875313" z="-210.449524"/>
+    <engine_port x="60" y="67.875313" z="-210.449524"/>
+    <impulse_point x="0" y="29.25" z="-242"/> <!-- MidHigh Z-242.68 -->
+    <impulse_point x="0" y="-8" z="-230"/> <!-- MidLow X0.45 Z-230.72"-->
+    <maneuver_point x="94.61" y="-33.77" z="-143.99"/> <!-- Starboard -->
+    <maneuver_point x="-94.61" y="-33.77" z="-143.99"/> <!-- Port -->
+	<long_desc text="Nemesis Class Interceptor^Combat scout designed for high-speed interception and strafing runs.^2 standard beams, configured for narrow firing arc, longer range, and reduced intensity.^2 low-intensity beams.^1 Torpedo tube with stores for 8 Homing, 2 EMP, 1 Mine, 8 PShock."/>
+  </vessel>

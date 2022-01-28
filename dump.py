@@ -52,8 +52,6 @@ for vessels in root.findall("./vessel"):
 # vessel_classname = root.find("./vessel[@uniqueID='" + entered_text + "']").attrib['classname']
 # vessel_description = root.find("./vessel[@uniqueID='" + entered_text +"']/long_desc").attrib['text']
 # vessel_broadType = root.find("./vessel[@uniqueID='" + entered_text + "']").attrib['broadType']
-
-
 # vessel_homing_count = \
 # root.find(".//vessel[@uniqueID='" + entered_text + "']/torpedo_storage[@type='trp']").attrib['amount']
 # vessel_nuke_count = \
